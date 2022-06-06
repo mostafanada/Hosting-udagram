@@ -6,7 +6,7 @@
         "api:build": "cd ./udagram-api && npm run build && cd ..",
         "frontend:test": "cd ./udagram-frontend && npm run test && cd ..",
         "api:test": "cd ./udagram-api && npm run test && cd .. ",
-        "frontend:deploy": "cd ./udagram-frontend && aws s3 cp --recursive --acl public-read ./www s3://udagram-mostafa/ --region us-east-1 && cd ..",
+        "frontend:deploy": "cd ./udagram-frontend && aws s3 cp --recursive --acl public-read ./www s3://%AWS_BUCKET%/ --region %AWS_REGION% && cd ..",
         "api:deploy": "cd ./udagram-api &&  eb init udagram-api --platform node.js --region us-east-1 && npm run deploy && cd .."},
     "devDependencies": {}
 }
