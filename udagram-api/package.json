@@ -8,13 +8,13 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "node ./www/server.js",
-    "tsc": "npx tsc",
-    "dev": "npx ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "prod": "npx tsc && node ./www/server.js",
+    "deploy":"cd www && eb use udagram-api-dev && eb deploy && eb setenv POSTGRES_HOST=$POSTGRES_HOST DB_PORT=$DB_PORT POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_USERNAME=$POSTGRES_USERNAME RDS_DIALECT=$RDS_DIALECT POSTGRES_DB=$POSTGRES_DB URL=$URL JWT_SECRET=$JWT_SECRET",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "prod": "tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
     "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Gabriel Ruttner",
