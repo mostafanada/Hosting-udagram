@@ -4,6 +4,7 @@ orbs:
   node: circleci/node@5.0.0
   aws-cli: circleci/aws-cli@2.0.6
   eb: circleci/aws-elastic-beanstalk@2.0.1
+<<<<<<< HEAD
   browser: circleci/browser-tools@1.2.4
    
 jobs:
@@ -27,11 +28,27 @@ jobs:
       - run:
          name: Frontend Deploy
          command: npm run frontend:deploy
+=======
+
+
+jobs:
+  build: 
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install
+      - aws-cli/setup
+      - eb/setup
       - run:
-          name: Back-End Install
-          command: |
-            npm run backend:install
+          name: install the frontend dependencies
+          command: npm run frontend:install
+>>>>>>> 005fd2883a3a33234b39d3ca0c4fc3e381a6c03a
       - run:
+          name: install the backend dependencies
+          command: npm run api:install
+      - run:
+<<<<<<< HEAD
           name: Back-End Change Main Entry Point
           command: |
             npm run backend:change-main
@@ -56,3 +73,25 @@ workflows:
          filters:
             branches:
               only: main
+=======
+          name: build the frontend project
+          command: npm run frontend:build
+      - run:
+          name: build the backend project
+          command: npm run api:build
+      - run:
+          name: backend deploy
+          command: npm run api:deploy
+      - run:
+          name: frontend deploy
+          command: npm run frontend:deploy
+
+workflows:
+  Udagram:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+>>>>>>> 005fd2883a3a33234b39d3ca0c4fc3e381a6c03a
